@@ -1,0 +1,12 @@
+{
+    "max_num_batched_tokens": 131072,
+    "enable_prefix_caching": false,
+    "dynamic_split_fuse": false,
+    "num_kv_blocks": 1024,
+    "use_maestro": false,
+    "offload_path": "",
+    "ssd_buf_space_gb": 20,
+    "dram_buf_space_gb": 0,
+    "resume_from_ssd": false,
+    "debug_log_path": ""
+}

@@ -29,7 +29,15 @@ OTHER_IGNORE_MODEL_PATH_PARTS = ['compressed_weights']
 def get_param_from_file(args, input_key):
     is_json_data = False
     data_list = []
-    if args['prompt_file'] is None:
+    if args['prompt_len'] != 0:
+        from transformers import AutoTokenizer
+        def generate_random_token_ids(model_id: str, length: int):
+            tokenizer = AutoTokenizer.from_pretrained(model_id)
+            prompt = "hello" * (length - 1 - 16)
+            return prompt
+        prompt = generate_random_token_ids(args['model'], args['prompt_len'])
+        data_list.append(prompt)
+    elif args['prompt_file'] is None:
         if not isinstance(input_key, (list, tuple)):
             if args[input_key] is None:
                 if args['use_case'] == 'text_gen':
@@ -126,6 +134,8 @@ def analyze_args(args):
     model_args['mask_image'] = args.mask_image
     model_args['task'] = args.task
     model_args['strength'] = args.strength
+    model_args['prompt_len'] = args.prompt_len
+    model_args['model'] = args.model
 
     optimum = args.optimum
 
